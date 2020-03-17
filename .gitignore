@@ -1,0 +1,36 @@
+# general things to ignore
+build/
+dist/
+*.egg-info/
+*.egg
+*.py[cod]
+__pycache__/
+*.so
+*~
+
+# due to using Tox
+.tox/
+
+# Unit test / coverage reports
+.cache
+htmlcov/
+pytest.*
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# temporary
+temp/
+temporary/
+
+# PyCharm IDE
+.idea/
+
+# Dropbox sync
+.dropbox.attr
+
+# Documentation
+docs/build/
