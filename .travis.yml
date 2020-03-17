@@ -1,0 +1,26 @@
+# this file is *not* meant to cover or endorse the use of travis, but rather to
+# help confirm pull requests to this project.
+
+language: python
+
+matrix:
+  include:
+    - dist: bionic  # Ubuntu 18.04
+      python: 3.6
+      env: TOXENV=py36
+    - dist: bionic  # Ubuntu 18.04
+      python: 3.7
+      env: TOXENV=py37
+
+install:
+  - pip install --upgrade pip
+  - pip install tox coverage  # pytest flake8
+
+script:
+  - tox  # --sitepackages
+
+after_success:
+  - coverage report
+
+notifications:
+  email: false
