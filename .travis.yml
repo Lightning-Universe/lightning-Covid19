@@ -14,7 +14,7 @@ matrix:
 
 install:
   - pip install --upgrade pip
-  - pip install tox coverage  # pytest flake8
+  - pip install tox==2.5 coverage  # pytest flake8
 
 script:
   - tox  # --sitepackages
