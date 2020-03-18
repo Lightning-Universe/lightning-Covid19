@@ -1,3 +1,8 @@
-torch>=1.1
+torch>=1.2
 pytorch-lightning>=0.7.1
 kornia>=0.2.0
+
+-e git://github.com/mlmed/torchxrayvision.git#egg=torchxrayvision
+torchvision==0.5.0
+scikit-image
+pandas

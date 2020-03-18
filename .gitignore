@@ -34,3 +34,12 @@ temporary/
 
 # Documentation
 docs/build/
+
+# Python virtual env
+venv/
+
+# PyTorch Lightning logs
+lightning_logs/
+
+# Data Directory for storing data on disc
+data/
