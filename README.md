@@ -24,6 +24,9 @@ They are also accessible with following python packages:
     source venv/bin/activate
     pip install -r requirements
 
+## Experiments
+See the [Experiments on Wiki.](https://github.com/PyTorchLightning/lightning-Covid19/wiki/Experiments)
+
 ## Contribution
 
 Anyone is welcome to contribute and use this project...
