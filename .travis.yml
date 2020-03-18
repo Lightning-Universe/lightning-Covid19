@@ -14,10 +14,15 @@ matrix:
 
 install:
   - pip install --upgrade pip
-  - pip install tox==2.5 coverage  # pytest flake8
+  - pip install -r ./requirements.txt
+  - pip install -r tests/requirements.txt
 
 script:
-  - tox  # --sitepackages
+  # check-manifest --ignore tox.ini
+  # python setup.py check --metadata --strict
+  # python setup.py install --dry-run
+  - flake8 .
+  - coverage run --source detect_covid19 -m py.test detect_covid19 tests {posargs}
 
 after_success:
   - coverage report
