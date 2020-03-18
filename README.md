@@ -20,9 +20,9 @@ They are also accessible with following python packages:
 
 ## Installation
 
-  python3.6 -m venv venv  # from repo root, use python3.6+
-  source venv/bin/activate
-  pip install -r requirements
+    python3.6 -m venv venv  # from repo root, use python3.6+
+    source venv/bin/activate
+    pip install -r requirements
 
 ## Contribution
 
