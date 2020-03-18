@@ -19,6 +19,10 @@ They are also accessible with following python packages:
 Anyone is welcome to contribute and use this project...
 For easier combination and coordination we are using separate [channel](https://pytorch-lightning.slack.com/archives/CV7MNM0NP) in Lightning Slack, feel free to join!
 
+Just a few technical notes:
+* when mering PR, do "Squash & merge" so in master is only one commit and does not overlap with other commits from different PRs in parallel
+* for writing particular result or how to launch anything, lets ise Wiki for now as it much more flexible
+
 ## References
 
 TBD
