@@ -36,7 +36,7 @@ TBD
 ## The baseline experiment
 See 
 ```bash
-  ./lightning_covid19/model/base_densenet.py:DenseNetModel
+  ./lightning_covid19/model/densenet.py:DenseNetModel
   ./run_baseline_densenet.py
 ```
 Run 

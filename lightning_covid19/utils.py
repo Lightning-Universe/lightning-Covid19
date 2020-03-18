@@ -11,8 +11,8 @@ import numpy as np
 def run(cmd, stderr=subprocess.STDOUT):
     out = None
     try:
-        out = subprocess.check_output([cmd], shell=True, stderr=subprocess.STDOUT,
-                universal_newlines=True)
+        out = subprocess.check_output([cmd], shell=True,
+                                      stderr=subprocess.STDOUT, universal_newlines=True)
     except subprocess.CalledProcessError as e:
         print(f'ERROR {e.returncode}: {cmd}\n\t{e.output}', flush=True, file=sys.stderr)
         raise e

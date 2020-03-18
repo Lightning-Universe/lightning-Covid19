@@ -16,7 +16,7 @@ import torchvision.transforms as transforms
 import torchxrayvision as xrv
 from pytorch_lightning.core import LightningModule
 
-from ..utils import run
+from lightning_covid19.utils import run
 
 
 class DenseNetModel(LightningModule):
@@ -175,7 +175,7 @@ class DenseNetModel(LightningModule):
         print(f'Covid Chest x-ray stats dataset stats:\n{covid19}\n\n', flush=True)
 
         # count split sizes
-        n_train= int(0.8 * len(covid19))
+        n_train = int(0.8 * len(covid19))
         n_valid_test = len(covid19) - n_train
         n_valid = int(0.5 * n_valid_test)
         n_test = n_valid_test - n_valid
