@@ -34,3 +34,9 @@ temporary/
 
 # Documentation
 docs/build/
+
+# Python virtual env
+venv/
+
+# PyTorch Lightning logs
+lightning_logs/
