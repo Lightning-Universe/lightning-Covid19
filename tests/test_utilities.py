@@ -1,6 +1,6 @@
 import os
 
-from detect_covid19 import PATH_ROOT
+from lightning_covid19 import PATH_ROOT
 
 
 def test_paths():

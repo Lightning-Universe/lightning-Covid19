@@ -24,7 +24,7 @@ script:
   # python setup.py check --metadata --strict
   # python setup.py install --dry-run
   - flake8 .
-  - coverage run --source detect_covid19 -m py.test detect_covid19 tests -v --doctest-modules #  --flake8
+  - coverage run --source lightning_covid19 -m py.test lightning_covid19 tests -v --doctest-modules #  --flake8
 
 after_success:
   - coverage report
