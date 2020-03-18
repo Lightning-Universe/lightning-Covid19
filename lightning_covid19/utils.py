@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-import os
-import pprint
 import subprocess
 import sys
 import random

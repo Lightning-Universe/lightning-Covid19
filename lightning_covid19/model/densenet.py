@@ -81,7 +81,7 @@ class DenseNetModel(LightningModule):
         acc = torch.tensor(acc)
 
         if self.on_gpu:
-            acc = acc.cuda(val.device.index)
+            acc = acc.cuda(loss.device.index)
 
         # in DP mode (default) make sure if result is scalar, there's another dim in the beginning
         if self.trainer.use_dp or self.trainer.use_ddp2:
@@ -161,11 +161,12 @@ class DenseNetModel(LightningModule):
 
     def prepare_data(self):
         chestxray_root = self.hparams.data_root
+        clone_uri = 'https://github.com/ieee8023/covid-chestxray-dataset.git'
         if os.path.exists(chestxray_root):
             assert os.path.isdir(chestxray_root), f'{chestxray_root} should be cloned from {clone_uri}'
         else:
             print('Cloning the covid chestxray dataset. It may take a while\n...\n', flush=True)
-            run(f'git clone https://github.com/ieee8023/covid-chestxray-dataset.git {chestxray_root}')
+            run(f'git clone {clone_uri} {chestxray_root}')
         transform = transforms.Compose([xrv.datasets.XRayCenterCrop(),
                                         xrv.datasets.XRayResizer(self.hparams.xraysize)])
         covid19 = xrv.datasets.COVID19_Dataset(

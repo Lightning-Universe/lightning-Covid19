@@ -7,13 +7,12 @@ Intended for development and simple models which are fast
 """
 import argparse
 import os
-import random
 from pytorch_lightning import Trainer
 from lightning_covid19.model.densenet import DenseNetModel
 from lightning_covid19.utils import set_global_seeds
 
-
 set_global_seeds(42)  # need to be before importing module
+
 
 def get_args():
     # these are project-wide arguments
