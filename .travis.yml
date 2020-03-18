@@ -1,0 +1,33 @@
+# this file is *not* meant to cover or endorse the use of travis, but rather to
+# help confirm pull requests to this project.
+
+language: python
+
+cache: pip
+
+matrix:
+  include:
+    - dist: bionic  # Ubuntu 18.04
+      python: 3.6
+      env: TOXENV=py36
+    - dist: bionic  # Ubuntu 18.04
+      python: 3.7
+      env: TOXENV=py37
+
+install:
+  - pip install --upgrade pip
+  - pip install -r ./requirements.txt
+  - pip install -r tests/requirements.txt
+
+script:
+  # check-manifest --ignore tox.ini
+  # python setup.py check --metadata --strict
+  # python setup.py install --dry-run
+  - flake8 .
+  - coverage run --source lightning_covid19 -m py.test lightning_covid19 tests -v --doctest-modules #  --flake8
+
+after_success:
+  - coverage report
+
+notifications:
+  email: false

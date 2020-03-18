@@ -1,6 +1,22 @@
 # Lightning-Covid19
- A detector for [covid-19 chest X-ray images](https://github.com/ieee8023/covid-chestxray-dataset) 
+
+[![Build Status](https://travis-ci.org/PyTorchLightning/lightning-Covid19.svg?branch=master)](https://travis-ci.org/PyTorchLightning/lightning-Covid19)
+
+A detector for [covid-19 chest X-ray images](https://github.com/ieee8023/covid-chestxray-dataset) 
  using [PyTorch Lightning](https://github.com/PyTorchLightning/pytorch-lightning) (for educational purposes)
+
+## Overview
+
+This project came with actual global situation and reciently release X-ray dataset.
+
+## Data
+
+The baseline models uses only [covid-chestxray-dataset](https://github.com/ieee8023/covid-chestxray-dataset/)
+ which is rather small (79 images at the time of writing).
+
+They are also accessible with following python packages:
+- https://github.com/ieee8023/covid-chestxray-dataset
+- https://github.com/mlmed/torchxrayvision
 
 ## Installation
 
@@ -8,25 +24,32 @@
   source venv/bin/activate
   pip install -r requirements
 
+## Contribution
+
+Anyone is welcome to contribute and use this project...
+For easier combination and coordination we are using separate [channel](https://pytorch-lightning.slack.com/archives/CV7MNM0NP) in Lightning Slack, feel free to join!
+
+## References
+
+TBD
 
 ## The baseline experiment
 See 
-
+```bash
   ./lightning_covid19/model/base_densenet.py:DenseNetModel
   ./run_baseline_densenet.py
-
+```
 Run 
-
+```bash
   ./run_baseline_densenet.py
-
-### Data
-The baseline models uses only [covid-chestxray-dataset](https://github.com/ieee8023/covid-chestxray-dataset/) which is
-rather small (79 images at the time of writing).
+```
 
 ### Model
+
 The `DenseNet` model is taken from [torchxrayvision library](https://github.com/mlmed/torchxrayvision) 
 
 ### Experiment setup
+
 - Single node, SGD, GPU, single node, training time 12min on 4 CPU workers
 - Metrics: `val_loss`, `accuracy`
 - Results: `val_acc` and `val_loss` highly unstable -- too small data
@@ -49,6 +72,3 @@ Epoch 19: : 50it [00:20,  3.61it/s, loss=0.338, train_loss=0.406, v_num=14, val_
 Epoch 20: : 50it [00:01,  3.69it/s, loss=0.375, train_loss=0.167, v_num=14, val_acc=0.917, val_loss=0.236]
 Epoch 20: : 50it [00:17,  3.69it/s, loss=0.375, train_loss=0.167, v_num=14, val_acc=0.917, val_loss=0.236]
 ```
-    
-
-
