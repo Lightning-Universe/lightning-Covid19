@@ -20,6 +20,8 @@ def get_args():
     parent_parser.add_argument('--fast_dev_run',
                                default=False, action='store_true',
                                help='fast_dev_run: runs 1 batch of train, test, val (ie: a unit test)')
+    parent_parser.add_argument('--num_gpus', default=0, type=int,
+            help='See https://github.com/PyTorchLightning/pytorch-lightning/blob/732eaee4d735dafd1c90728e5583341d75ff72b5/pytorch_lightning/trainer/distrib_parts.py#L595')
     # add model specific arguments
     root_dir = os.path.dirname(os.path.realpath(__file__))
     parser = DenseNetModel.add_model_specific_args(parent_parser, root_dir)
