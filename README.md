@@ -20,9 +20,23 @@ They are also accessible with following python packages:
 
 ## Installation
 
+1. Download the project: `git clone https://github.com/PyTorchLightning/lightning-Covid19.git`
+
+2. Setup your development environment:
+
+**From Python Virtual Environments**
+
     python3.6 -m venv venv  # from repo root, use python3.6+
     source venv/bin/activate
     pip install -r requirements
+
+**From conda**
+
+To install all the needed dependencies, or update the conda environment: `./setup_dev_env.sh`
+
+Then to activate the conda environment: `source path.bash.inc`
+
+3. You are good to go to run your experiments -> See section [Experiments](#experiments).
 
 ## Experiments
 See the [Experiments on Wiki.](https://github.com/PyTorchLightning/lightning-Covid19/wiki/Experiments)
