@@ -12,11 +12,35 @@ import torch
 import torch.nn as nn
 from torch import optim
 from torch.utils.data import DataLoader
+
+import kornia as K
 import torchvision.transforms as transforms
 import torchxrayvision as xrv
-from pytorch_lightning.core import LightningModule
 
+from pytorch_lightning.core import LightningModule
 from lightning_covid19.utils import run
+
+
+class KorniaAugmentation(nn.Module):
+    """Module to perform data augmentation using Kornia on torch tensors."""
+    def __init__(self, apply_color_jitter: bool = False) -> None:
+        super().__init__()
+        self._apply_color_jitter = apply_color_jitter
+
+        self.transforms = nn.Sequential(
+            # TODO: verify this range
+            K.color.Normalize(0., 1000.),
+            K.augmentation.RandomHorizontalFlip(p=0.5)
+        )
+
+        self.jitter = K.augmentation.ColorJitter(0.5, 0.5, 0.5, 0.5)
+
+    @torch.no_grad()  ## disable gradients for effiency
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        x_out = self.transforms(x).unsqueeze(1)
+        if self._apply_color_jitter:
+            x_out = self.jitter(x_out)
+        return x_out
 
 
 class DenseNetModel(LightningModule):
@@ -39,13 +63,16 @@ class DenseNetModel(LightningModule):
         self.dense_net = xrv.models.DenseNet(num_classes=2)
         self.criterion = nn.CrossEntropyLoss()
 
+        self.transform = KorniaAugmentation()
+
     def forward(self, x):
         logits = self.dense_net(x)
         return logits
 
-    @staticmethod
-    def _parse_batch(batch):
+    def _parse_batch(self, batch):
         x = batch['PA']
+        x = self.transform(x)  # augment data at batch level
+
         y = batch['lab'].long()[:, 2]
         return x, y
 
