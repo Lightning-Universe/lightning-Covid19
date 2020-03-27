@@ -13,6 +13,7 @@ import torch.nn as nn
 from torch import optim
 from torch.utils.data import DataLoader
 
+import numpy as np
 import kornia as K
 import torchvision.transforms as transforms
 import torchxrayvision as xrv
@@ -194,12 +195,26 @@ class DenseNetModel(LightningModule):
         else:
             print('Cloning the covid chestxray dataset. It may take a while\n...\n', flush=True)
             run(f'git clone {clone_uri} {chestxray_root}')
+
         transform = transforms.Compose([xrv.datasets.XRayCenterCrop(),
                                         xrv.datasets.XRayResizer(self.hparams.xraysize)])
+
+        # TODO: we could just use K.augmentation.RandomResizedCrop
+        # https://kornia.readthedocs.io/en/latest/augmentation.html#kornia.augmentation.RandomResizedCrop
+
+        def transform_kornia(data: np.ndarray) -> torch.Tensor:
+            assert isinstance(data, np.ndarray), type(data)
+            assert len(data.shape) == 3 and data.shape[0], data.shape
+            x: torch.Tensor = torch.tensor(data)[None]  # 1xCxHxW
+            crop_size: int = min(data.shape[-2:]) // 2
+            x_out = K.center_crop(x, (crop_size, crop_size))
+            x_out = K.resize(x_out, self.hparams.xraysize)
+            return x_out.squeeze(0)  # CxHxW
+
         covid19 = xrv.datasets.COVID19_Dataset(
             imgpath=f'{chestxray_root}/images',
             csvpath=f'{chestxray_root}/metadata.csv',
-            transform=transform)
+            transform=transform_kornia)
         print(f'Covid Chest x-ray stats dataset stats:\n{covid19}\n\n', flush=True)
 
         # count split sizes
