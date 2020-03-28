@@ -43,10 +43,16 @@ See the [Experiments on Wiki.](https://github.com/PyTorchLightning/lightning-Cov
 
 ## Contribution
 
-Anyone is welcome to contribute and use this project...
-For easier combination and coordination we are using separate [channel](https://pytorch-lightning.slack.com/archives/CV7MNM0NP) in Lightning Slack, feel free to join!
+Anyone is welcome to contribute and use this project!
 
-Just a few technical notes:
+The project's features, bugs, and questions are discussed and planned in [the project's Github issue's](https://github.com/PyTorchLightning/lightning-Covid19/issues).
+
+For informal, longer discussion we use [PyTorch-Lightning (PL)](https://github.com/PyTorchLightning/pytorch-lightning) [Slack Workspace. See how to join it - See point 4 in Section "Asking for Help" in PL README](https://github.com/PyTorchLightning/pytorch-lightning/#asking-for-help).
+
+For easier combination and coordination we are using separate [channel](https://pytorch-lightning.slack.com/archives/CV7MNM0NP) in PL Slack.
+**Join our open-source community!**
+
+Notes on contributing code and results:
 * when mering PR, do "Squash & merge" so in master is only one commit and does not overlap with other commits from different PRs in parallel
 * for writing particular result or how to launch anything, lets ise Wiki for now as it much more flexible
 
