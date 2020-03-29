@@ -12,11 +12,13 @@ import torch
 import torch.nn as nn
 from torch import optim
 from torch.utils.data import DataLoader
-import torchvision.transforms as transforms
-import torchxrayvision as xrv
-from pytorch_lightning.core import LightningModule
 
+import torchxrayvision as xrv
+
+from pytorch_lightning.core import LightningModule
 from lightning_covid19.utils import run
+
+import lightning_covid19.model.augmentation as transforms
 
 
 class DenseNetModel(LightningModule):
@@ -39,13 +41,16 @@ class DenseNetModel(LightningModule):
         self.dense_net = xrv.models.DenseNet(num_classes=2)
         self.criterion = nn.CrossEntropyLoss()
 
+        self.transform = transforms.DataAugmentator()
+
     def forward(self, x):
         logits = self.dense_net(x)
         return logits
 
-    @staticmethod
-    def _parse_batch(batch):
+    def _parse_batch(self, batch):
         x = batch['PA']
+        x = self.transform(x)  # augment data at batch level
+
         y = batch['lab'].long()[:, 2]
         return x, y
 
@@ -167,8 +172,14 @@ class DenseNetModel(LightningModule):
         else:
             print('Cloning the covid chestxray dataset. It may take a while\n...\n', flush=True)
             run(f'git clone {clone_uri} {chestxray_root}')
-        transform = transforms.Compose([xrv.datasets.XRayCenterCrop(),
-                                        xrv.datasets.XRayResizer(self.hparams.xraysize)])
+
+        transform = nn.Sequential(
+            transforms.ToTensor(),
+            transforms.XRayCenterCrop(),
+            transforms.XRayResizer(self.hparams.xraysize),
+            transforms.Squeeze(),
+        )
+
         covid19 = xrv.datasets.COVID19_Dataset(
             imgpath=f'{chestxray_root}/images',
             csvpath=f'{chestxray_root}/metadata.csv',
