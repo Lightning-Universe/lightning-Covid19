@@ -20,7 +20,7 @@ class DataAugmentator(nn.Module):
 
         self.jitter = K.augmentation.ColorJitter(0.5, 0.5, 0.5, 0.5)
 
-    @torch.no_grad()  ## disable gradients for effiency
+    @torch.no_grad()  # disable gradients for effiency
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         x_out = self.transforms(x).unsqueeze(1)
         if self._apply_color_jitter:
