@@ -48,7 +48,7 @@ class DenseNetModel(LightningModule):
         return logits
 
     def _parse_batch(self, batch):
-        x = batch['PA']
+        x = batch['img']
         x = self.transform(x)  # augment data at batch level
 
         y = batch['lab'].long()[:, 2]

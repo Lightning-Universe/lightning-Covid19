@@ -1,4 +1,4 @@
-import torch
+iimport torch
 import torch.nn as nn
 
 import kornia as K
@@ -22,7 +22,7 @@ class DataAugmentator(nn.Module):
 
     @torch.no_grad()  # disable gradients for effiency
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        x_out = self.transforms(x).unsqueeze(1)
+        x_out = self.transforms(x)#.unsqueeze(1)
         if self._apply_color_jitter:
             x_out = self.jitter(x_out)
         return x_out
